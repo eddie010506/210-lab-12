@@ -82,3 +82,31 @@ int main() {
     auto minIt = min_element(inventory.cbegin(), inventory.cend());
     cout << "   - Highest stock count for a single book: " << *maxIt << "\n";
     cout << "   - Lowest stock count for a single book: " << *minIt << "\n";
+
+    cout << "\n6. Printing Inventory in Reverse Order (Book ID " << INVENTORY_SIZE - 1 << " to 0):\n";
+    for_each(inventory.rbegin(), inventory.rend(), [](int stock){
+        cout << "   - Stock: " << stock << "\n";
+    });
+
+    // fill() - Simulate a flash sale where we restock every book to a specific amount
+    cout << "\n7. Simulating a 'Special Edition' restock...\n";
+    inventory.fill(50);
+    printInventory(inventory, "Inventory After Filling with 50");
+
+    // swap() - A new shipment arrives, and we swap out the entire inventory display
+    cout << "\n8. A new shipment arrived! Swapping inventories...\n";
+    array<int, INVENTORY_SIZE> newShipment;
+    newShipment.fill(15); // The new shipment has 15 of every book
+    
+    inventory.swap(newShipment);
+
+    printInventory(inventory, "Inventory After SWAP (Now showing new shipment)");
+    printInventory(newShipment, "Old 'Special Edition' Stock (Now in newShipment array)");
+
+    // Relational Operators - Compare the swapped arrays
+    if (inventory != newShipment) {
+        cout << "\nThe current inventory is now different from the old stock.\n";
+    }
+
+    return 0;
+}
